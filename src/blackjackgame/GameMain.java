@@ -8,6 +8,7 @@ package blackjackgame;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import blackjackgame.Deck;
 
 
 public class GameMain {

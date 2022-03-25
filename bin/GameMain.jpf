@@ -1,0 +1,2 @@
+target = blackjackgame.GameMain
+classpath = .
