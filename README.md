@@ -1,3 +1,10 @@
+# How to run JPF file
+From the /bin directory, run `jpf GameMain.jpf`
+
+
+
+# Old README
+
 Blackjack-game-in-java
 ======================
 
