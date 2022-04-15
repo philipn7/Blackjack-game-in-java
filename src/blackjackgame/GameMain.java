@@ -8,6 +8,8 @@ package blackjackgame;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Random;
+
 import blackjackgame.Deck;
 
 
@@ -44,16 +46,17 @@ public class GameMain {
 		while(this.balance > 0 &&  !gameOver){
 					
 			System.out.println("\n"+this.playerName+", Do you want to DEAL or END the game [D or E]??");
-			String gameInit = sc.next();
-					
-			if(gameInit.compareToIgnoreCase("D") == 0){
-					
+			//String gameInit = sc.next();
+
+			if(this.balance > 10){
+				
 				this.dealTheGame();			
 			}
 			else{
 						
 				gameOver = true;
-			}	
+			}		
+
 		}
 		
 		System.out.println("\n"+this.playerName+", !!!! Game Ended !!!");
@@ -86,7 +89,28 @@ public class GameMain {
 			try{
 				
 				System.out.println("\n"+msg);
-				this.bet = sc.nextFloat();
+				
+				/*
+				Random r1 = new Random();
+				if (r1.nextFloat() <= 0.05f) {
+					try {
+						throw new Exception();
+					}catch(Exception e){
+						
+					}
+				}
+				*/
+				
+				if (this.balance < 10) {
+					this.bet = (int)this.balance;
+				} else {
+					Random r = new Random();
+					int low = 0;
+					int high = (int) this.balance;
+					int result = r.nextInt(high-low) + low;
+					this.bet = (int) result;
+				}
+				
 			}catch(InputMismatchException e){
 				
 				//System.err.println("Caught InputMismatchException: " +  e.getMessage());
@@ -233,19 +257,25 @@ public class GameMain {
 			System.out.print("Hit or Stay? [Enter H or S(or press any letter to Stay)]");
 		}
 		
-		answer = sc.next();
-		System.out.println();
+		//answer = sc.next();
+		//System.out.println();
 		
-		if(answer.compareToIgnoreCase("H") == 0){
+		Random r = new Random();
+		int low = 0;
+		int high = 100;
+		int result = r.nextInt(high-low) + low;
+		System.out.println(result);
+
+		if(result < 25){
 			
 			this.hit();
 			this.doubleDownAllowed = false;
 		}
-		else if(answer.compareToIgnoreCase("DD") == 0 && this.doubleDownAllowed){
+		else if(result >= 25 && result < 50){
 			
 			this.doubleDown();
 		}
-		else if(answer.compareToIgnoreCase("SS") == 0){
+		else if(result >= 50 && result < 75){
 			
 			//this.split();	
 			this.doubleDownAllowed = false;
@@ -254,6 +284,7 @@ public class GameMain {
 			
 			this.stay();
 		}
+		
 	}
 	
 	// Player's Hit
@@ -406,8 +437,8 @@ public class GameMain {
 		System.out.println("\t\t\t\t#                                     #");
 		System.out.println("\t\t\t\t#######################################\n");
 	
-		System.out.println("Enter Your Name:\n");
-		playerName = scanner.nextLine();
+		//System.out.println("Enter Your Name:\n");
+		playerName = "test";
 		
 		new GameMain(playerName);
 		
