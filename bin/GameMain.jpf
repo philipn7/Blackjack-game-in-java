@@ -1,2 +1,4 @@
 target = blackjackgame.GameMain
 classpath = .
+cg.enumerate_random=true
+listener=gov.nasa.jpf.listener.StateSpaceDot
